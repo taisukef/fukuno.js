@@ -1,4 +1,4 @@
-/* CC BY - fukuno@jig.jp */
+/* fukuno.js CC BY - fukuno@jig.jp */
 
 'use strict';
 
@@ -10,11 +10,6 @@ String.prototype.endsWith = function(s) {
 		return false;
 	return this.lastIndexOf(s) == this.length - s.length;
 };
-if ($ == null) {
-	var $ = function(id) {
-		return document.getElementById(id);
-	};
-}
 var get = function(id) {
 	return document.getElementById(id);
 };
@@ -25,7 +20,7 @@ var create = function(tag, id) {
 	return res;
 };
 var clear = function(id) {
-	var div = typeof id == "string" ? $(id) : id;
+	var div = typeof id == "string" ? get(id) : id;
 	while (div.hasChildNodes()) {
 		div.removeChild(div.lastChild);
 	}
@@ -204,14 +199,6 @@ var xml2json = function(xml) { // attribute無視、名前重なったら配列化
 	};
 	return f(xml);
 };
-var rgb2css = function(r, g, b) {
-	if (typeof r == 'object') {
-		g = r[1];
-		b = r[2];
-		r = r[0];
-	}
-	return "#" + dec2hex(r, 2) + dec2hex(g, 2) + dec2hex(b, 2);
-};
 var debug = function(s) {
 	var d = $('debug');
 	if (d == null) {
@@ -222,7 +209,7 @@ var debug = function(s) {
 //	d.textContent = s;
 	d.innerHTML = s;
 };
-var dump = function(o, name, target) { // default <div id=dump>
+var dump = function(o, name, target) { // default: div id=dump
 	if (target == null) {
 		debug("");
 		target = $('debug');
@@ -339,6 +326,14 @@ var hsv2rgb = function(h, s, v) {
 	rgb[1] = rgb[1] * 255 >> 0;
 	rgb[2] = rgb[2] * 255 >> 0;
 	return rgb;
+};
+var rgb2css = function(r, g, b) {
+	if (typeof r == 'object') {
+		g = r[1];
+		b = r[2];
+		r = r[0];
+	}
+	return "#" + dec2hex(r, 2) + dec2hex(g, 2) + dec2hex(b, 2);
 };
 
 // ui (mouse & touch)
