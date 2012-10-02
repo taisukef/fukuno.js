@@ -1,0 +1,61 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'/>
+<meta name="viewport" content="target-densitydpi=device-dpi, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/><!-- default / black / black-translucent -->
+<meta name="format-detection" content="telephone=no"/>
+<link rel="apple-touch-icon" href="u20live.jpg"/>
+<title>u20live</title>
+<meta property="og:image" content="http://fukuno.jig.jp/2012/u20live.jpg">
+<script src="fukuno.js"></script>
+<script>"use strict";
+window.onload = function() {
+	var c = document.getElementById("canvas");
+	var g = getContext(c); // ずるしてます
+	enableUI(c);
+	var mx = -1;
+	var my = -1;
+	g.draw = function() {
+		g.setColor(0, 0, 0);
+		g.fillRect(0, 0, g.cw, g.ch);
+	};
+	c.onuidown = function(x, y) {
+		mx = x;
+		my = y;
+	}
+	c.onuimove = function(x, y) {
+		if (mx != -1) {
+			var h = (x + y) % 360;
+			var c = hsv2rgb(h, 1, 1);
+			g.setColor(c[0], c[1], c[2]);
+			g.drawLine(mx, my, x, y);
+			mx = x;
+			my = y;
+		}
+	};
+	c.onuiup = function() {
+		mx = -1;
+	};
+	g.init();
+};
+</script>
+<style>
+body {
+	margin: 0px;
+}
+#canvas {
+	display: block;
+	width: 100%;
+	height: 500px;
+}
+</style>
+</head>
+<body>
+
+<canvas id="canvas"></canvas>
+
+<div>
+CC BY - <a href=http://fukuno.jig.jp/2012/>taisuke fukuno</a> <a href=https://github.com/taisukef/>github</a>
+</div>
+
+</body>
+</html>

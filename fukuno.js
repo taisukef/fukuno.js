@@ -200,7 +200,7 @@ var xml2json = function(xml) { // attribute無視、名前重なったら配列化
 	return f(xml);
 };
 var debug = function(s) {
-	var d = $('debug');
+	var d = get('debug');
 	if (d == null) {
 		d = create('div');
 		d.id = 'debug';
@@ -212,7 +212,7 @@ var debug = function(s) {
 var dump = function(o, name, target) { // default: div id=dump
 	if (target == null) {
 		debug("");
-		target = $('debug');
+		target = get('debug');
 	}
 	dumpInner(o, name, 0, target);
 };
@@ -239,7 +239,7 @@ var dumpInner = function(o, name, depth, target) {
 var dumpxml = function(xml, comp) {
 	if (comp == null) {
 		debug("");
-		comp = $('debug');
+		comp = get('debug');
 	}
 	var f = function(xml, n) {
 		for (var i = 0; i < xml.childNodes.length; i++) {
